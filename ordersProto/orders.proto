@@ -1,0 +1,42 @@
+syntax = "proto3";
+package orders;
+option go_package = "./proto;orders";
+
+service Orders {
+    rpc Create(Order) returns (OrderResponse) {}
+}
+
+message Order {
+    repeated Product products = 1;
+    string price = 2;
+    string idUser = 3;
+    string Name = 4;
+    string Surname = 5;
+    Address address = 7;
+    string status = 8;
+}
+
+message OrderResponse {
+    string NumberOrder = 1;
+    repeated Product products = 2;
+    string price = 3;
+    string idUser = 4;
+    string Name = 5;
+    string Surname = 6;
+    Address address = 7;
+    string status = 8;
+}
+
+message Product {
+    string idProduct = 1;
+    string name = 2;
+    string price = 3;
+}
+
+message Address {
+    string Country = 1;
+    string City = 2;
+    string Post = 3;
+    string Street = 4;
+    string Number = 5;
+}

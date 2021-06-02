@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package cart;
+option go_package = "./proto;cart";
+
+service Cart {
+    rpc Create(ShoppingCart) returns (SaveCart) {}
+    rpc GetCart(ShoppingCart) returns (SaveCart) {}
+    rpc DeleteCart(ShoppingCart) returns (SaveCart) {}
+    rpc DeleteProduct(ShoppingCart) returns (SaveCart) {}
+}
+
+message ShoppingCart {
+    string idProduct = 1;
+    string idUser = 2;
+}
+
+message SaveCart {
+    string id = 1;
+    repeated Product products = 2;
+    string idUser = 3;
+}
+
+message Product {
+     string idProduct = 1;
+     string name = 2;
+     string price = 3;
+ }

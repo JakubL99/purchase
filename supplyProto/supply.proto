@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package supply;
+option go_package = "./proto;supply";
+
+service Supply {
+    rpc Calculate(Price) returns (Expense) {}
+}
+
+message Price {
+    string Price = 1;
+}
+
+message Expense {
+    string Expense = 1;
+}

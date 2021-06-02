@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package purchase;
+option go_package = "./proto;purchase";
+
+service Purchase {
+    rpc Start(User) returns (Purch) {}
+    rpc Implementation(Details) returns (Order) {}
+}
+
+message User {
+    string idUser = 1;
+}
+
+message Purch {
+    repeated Product products = 1;
+    string PriceOrder = 2;
+    string PriceSupply = 3;
+}
+
+
+message Product {
+     string idProduct = 1;
+     string name = 2;
+     string price = 3;
+ }
+
+
+message Details {
+    string idUser = 1;
+    Address address = 2;
+}
+
+message Address {
+    string Country = 1;
+    string City = 2;
+    string Post = 3;
+    string Street = 4;
+    string Number = 5;
+}
+
+message Order {
+    string numberOrder = 1;
+    string Name = 2;
+    string Surname = 3;
+    string numberAccount = 4;
+    string Price = 5;
+}

@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: purchase
+  namespace: micro
+  labels:
+    project: micro
+    micro: service
+    name: purchase
+    version: latest
+spec:
+  selector:
+    matchLabels:
+      micro: service
+      name: purchase
+      version: latest
+  template:
+    metadata:
+      labels:
+        project: micro
+        micro: service
+        name: purchase
+        version: latest
+    spec:
+      tolerations:
+        - key: "project"
+          operator: "Equal"
+          value: "micro"
+          effect: "NoSchedule"
+      containers:
+      - name: supply
+        image: lis689/purchase:2.2
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 443
+        env:
+          - name: "MICRO_API_ADDRESS" 
+            value: "443"
+          - name: "MICRO_PROXY"
+            value: "network.micro.svc.cluster.local:8443"
+          - name: "MICRO_SERVER_IMAGE"
+            value: "micro/micro:latest"
+          - name: "MICRO_SERVICE_ADDRESS"
+            value: ":8080"
+        envFrom:
+          - secretRef:
+              name: api-latest
